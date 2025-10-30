@@ -12,3 +12,5 @@
 /.idea/codeStyles/Project.xml
 /target/classes/com/PDFmodifier/PDFmodifier/ServletInitializer.class
 /.idea/vcs.xml
+/.idea/
+/target/

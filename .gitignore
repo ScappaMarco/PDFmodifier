@@ -1,0 +1,14 @@
+/.idea/.gitignore
+/target/classes/application.properties
+/.idea/aws.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/material_theme_project_new.xml
+/.idea/misc.xml
+/target/classes/com/PDFmodifier/PDFmodifier/PdFmodifierApplication.class
+/target/test-classes/com/PDFmodifier/PDFmodifier/PdFmodifierApplicationTests.class
+/.idea/codeStyles/Project.xml
+/target/classes/com/PDFmodifier/PDFmodifier/ServletInitializer.class
+/.idea/vcs.xml

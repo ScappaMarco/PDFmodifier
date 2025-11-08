@@ -1,15 +1,21 @@
 package com.PDFmodifier.PDFmodifier.model;
 
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "users")
 public class User {
     private Long id;
     private String username;
     private String email;
     private String encodedPassword;
-    private Date accountCreateDate;
+    private LocalDateTime accountCreateDate;
 
-    public User(Long id, String username, String email, String encodedPassword, Date accountCreateDate) {
+    public User(Long id, String username, String email, String encodedPassword, LocalDateTime accountCreateDate) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -17,12 +23,14 @@ public class User {
         this.accountCreateDate = accountCreateDate;
     }
 
-    public User(String username, String email, String encodedPassword, Date accountCreateDate) {
+    public User(String username, String email, String encodedPassword, LocalDateTime accountCreateDate) {
         this.username = username;
         this.email = email;
         this.encodedPassword = encodedPassword;
         this.accountCreateDate = accountCreateDate;
     }
+
+    public User() {}
 
     public Long getId() {
         return this.id;
@@ -56,11 +64,11 @@ public class User {
         this.encodedPassword = encodedPassword;
     }
 
-    public Date getAccountCreateDate() {
+    public LocalDateTime getAccountCreateDate() {
         return this.accountCreateDate;
     }
 
-    public void setAccountCreateDate(Date accountCreateDate) {
+    public void setAccountCreateDate(LocalDateTime accountCreateDate) {
         this.accountCreateDate = accountCreateDate;
     }
 }

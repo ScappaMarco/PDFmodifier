@@ -1,16 +1,21 @@
 package com.PDFmodifier.PDFmodifier.model;
 
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "documents")
 public class Document {
     private Long id;
     private String filerName;
     private String filePath;
-    private Date uploadDate;
+    private LocalDateTime uploadDate;
     private Long pagesNumber;
     private Long ownerId;
 
-    public Document(Long id, String fileName, String filePath, Date uploadDate, Long pagesNumber, Long ownerId) {
+    public Document(Long id, String fileName, String filePath, LocalDateTime uploadDate, Long pagesNumber, Long ownerId) {
         this.id = id;
         this.filerName = fileName;
         this.filePath = filePath;
@@ -19,7 +24,7 @@ public class Document {
         this.ownerId = ownerId;
     }
 
-    public Document(String fileName, String filePath, Date uploadDate, Long pagesNumber, Long ownerId) {
+    public Document(String fileName, String filePath, LocalDateTime uploadDate, Long pagesNumber, Long ownerId) {
         this.filerName = fileName;
         this.filePath = filePath;
         this.uploadDate = uploadDate;
@@ -27,12 +32,14 @@ public class Document {
         this.ownerId = ownerId;
     }
 
-    public Document(String fileName, String filePath, Date uploadDate, Long pagesNumber) {
+    public Document(String fileName, String filePath, LocalDateTime uploadDate, Long pagesNumber) {
         this.filerName = fileName;
         this.filePath = filePath;
         this.uploadDate = uploadDate;
         this.pagesNumber = pagesNumber;
     }
+
+    public Document() {}
 
     public Long getId() {
         return this.id;
@@ -58,11 +65,11 @@ public class Document {
         this.filePath = filePath;
     }
 
-    public Date getUploadDate() {
+    public LocalDateTime getUploadDate() {
         return this.uploadDate;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(LocalDateTime uploadDate) {
         this.uploadDate = uploadDate;
     }
 

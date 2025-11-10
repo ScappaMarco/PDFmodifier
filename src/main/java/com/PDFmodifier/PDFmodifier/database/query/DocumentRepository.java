@@ -1,11 +1,11 @@
-package com.PDFmodifier.PDFmodifier.database;
+package com.PDFmodifier.PDFmodifier.database.query;
 
+import com.PDFmodifier.PDFmodifier.database.mappers.DocumentRowMapper;
 import com.PDFmodifier.PDFmodifier.model.Document;
-import com.PDFmodifier.PDFmodifier.model.PdfOperation;
-import com.PDFmodifier.PDFmodifier.model.User;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class DocumentRepository {
@@ -22,6 +22,17 @@ public class DocumentRepository {
     }
 
     public Document getDocumentById(Long id) {
+        String query = "SELECT * FROM documents WHERE id = ?";
+        return jdbcTemplate.queryForObject(query, new DocumentRowMapper(), id);
+    }
 
+    public List<Document> getDocumetByName(String fileName) {
+        String query = "SELECT id, email, username, account_create_date FROM documents WHERE file_name = ?";
+        return jdbcTemplate.query(query, new DocumentRowMapper(), fileName);
+    }
+
+    public List<Document> getAllDocuments() {
+        String query = "SELECT * FROM documents";
+        return jdbcTemplate.query(query, new DocumentRowMapper());
     }
 }

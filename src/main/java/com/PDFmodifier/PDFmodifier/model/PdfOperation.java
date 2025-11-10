@@ -11,11 +11,11 @@ import java.util.List;
 public class PdfOperation {
     private Long documentId;
     private Long userId;
-    private Operation documentOperation;
+    private String documentOperation;
     private List<Long> pages;
     private LocalDateTime operationDate;
 
-    public PdfOperation(Long documentId, Long userId, Operation operation, List<Long> pages, LocalDateTime operationDate) {
+    public PdfOperation(Long documentId, Long userId, String operation, List<Long> pages, LocalDateTime operationDate) {
         this.documentId = documentId;
         this.userId = userId;
         this.documentOperation = operation;
@@ -41,11 +41,11 @@ public class PdfOperation {
         this.userId = userId;
     }
 
-    public Operation getDocumentOperation() {
+    public String getDocumentOperation() {
         return this.documentOperation;
     }
 
-    public void setDocumentOperation(Operation documentOperation) {
+    public void setDocumentOperation(String documentOperation) {
         this.documentOperation = documentOperation;
     }
 

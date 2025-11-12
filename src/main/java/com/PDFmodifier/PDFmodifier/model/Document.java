@@ -1,14 +1,17 @@
 package com.PDFmodifier.PDFmodifier.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "documents")
 public class Document {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String filerName;
     private String filePath;
     private LocalDate uploadDate;

@@ -1,7 +1,6 @@
 package com.PDFmodifier.PDFmodifier.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,7 +8,11 @@ import java.util.List;
 @Entity
 @Table(name = "pdf_operations")
 public class PdfOperation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long documentId;
     private Long userId;
     private String documentOperation;

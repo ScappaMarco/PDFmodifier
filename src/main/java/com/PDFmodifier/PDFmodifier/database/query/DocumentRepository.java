@@ -5,8 +5,8 @@ import com.PDFmodifier.PDFmodifier.model.Document;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -33,9 +33,14 @@ public class DocumentRepository {
         return jdbcTemplate.query(query, new DocumentRowMapper(), fileName);
     }
 
-    public List<Document> getDocumentsByDate(LocalDateTime date) {
+    public List<Document> getDocumentsByDate(LocalDate date) {
         String query = "SELECT * FROM documents WHERE upload_date = ?";
-        return jdbcTemplate.query(query, new DocumentRowMapper(), Timestamp.valueOf(date));
+        return jdbcTemplate.query(query, new DocumentRowMapper(), Date.valueOf(date));
+    }
+
+    public List<Document> getDocumentsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        String query = "SELECT * FROM documents WHERE upload_date BETWEEN ? AND ?";
+        return jdbcTemplate.query(query, new DocumentRowMapper(), Date.valueOf(startDate), Date.valueOf(endDate));
     }
 
     public List<Document> getAllDocuments() {

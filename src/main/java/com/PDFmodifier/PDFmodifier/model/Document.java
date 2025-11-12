@@ -3,7 +3,7 @@ package com.PDFmodifier.PDFmodifier.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "documents")
@@ -11,11 +11,11 @@ public class Document {
     private Long id;
     private String filerName;
     private String filePath;
-    private LocalDateTime uploadDate;
+    private LocalDate uploadDate;
     private Long pagesNumber;
     private Long ownerId;
 
-    public Document(Long id, String fileName, String filePath, LocalDateTime uploadDate, Long pagesNumber, Long ownerId) {
+    public Document(Long id, String fileName, String filePath, LocalDate uploadDate, Long pagesNumber, Long ownerId) {
         this.id = id;
         this.filerName = fileName;
         this.filePath = filePath;
@@ -24,7 +24,7 @@ public class Document {
         this.ownerId = ownerId;
     }
 
-    public Document(String fileName, String filePath, LocalDateTime uploadDate, Long pagesNumber, Long ownerId) {
+    public Document(String fileName, String filePath, LocalDate uploadDate, Long pagesNumber, Long ownerId) {
         this.filerName = fileName;
         this.filePath = filePath;
         this.uploadDate = uploadDate;
@@ -32,7 +32,7 @@ public class Document {
         this.ownerId = ownerId;
     }
 
-    public Document(String fileName, String filePath, LocalDateTime uploadDate, Long pagesNumber) {
+    public Document(String fileName, String filePath, LocalDate uploadDate, Long pagesNumber) {
         this.filerName = fileName;
         this.filePath = filePath;
         this.uploadDate = uploadDate;
@@ -65,11 +65,11 @@ public class Document {
         this.filePath = filePath;
     }
 
-    public LocalDateTime getUploadDate() {
+    public LocalDate getUploadDate() {
         return this.uploadDate;
     }
 
-    public void setUploadDate(LocalDateTime uploadDate) {
+    public void setUploadDate(LocalDate uploadDate) {
         this.uploadDate = uploadDate;
     }
 

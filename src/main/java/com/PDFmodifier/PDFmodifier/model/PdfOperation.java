@@ -3,19 +3,20 @@ package com.PDFmodifier.PDFmodifier.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "pdf_operations")
 public class PdfOperation {
+    private Long id;
     private Long documentId;
     private Long userId;
     private String documentOperation;
     private List<Long> pages;
-    private LocalDateTime operationDate;
+    private LocalDate operationDate;
 
-    public PdfOperation(Long documentId, Long userId, String operation, List<Long> pages, LocalDateTime operationDate) {
+    public PdfOperation(Long documentId, Long userId, String operation, List<Long> pages, LocalDate operationDate) {
         this.documentId = documentId;
         this.userId = userId;
         this.documentOperation = operation;
@@ -24,6 +25,14 @@ public class PdfOperation {
     }
 
     public PdfOperation() {}
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getDocumentId() {
         return this.documentId;
@@ -65,11 +74,11 @@ public class PdfOperation {
         this.pages = pages;
     }
 
-    public LocalDateTime getOperationDate() {
+    public LocalDate getOperationDate() {
         return this.operationDate;
     }
 
-    public void setOperationDate(LocalDateTime operationDate) {
+    public void setOperationDate(LocalDate operationDate) {
         this.operationDate = operationDate;
     }
 }

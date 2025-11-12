@@ -5,6 +5,8 @@ import com.PDFmodifier.PDFmodifier.model.Document;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -26,9 +28,14 @@ public class DocumentRepository {
         return jdbcTemplate.queryForObject(query, new DocumentRowMapper(), id);
     }
 
-    public List<Document> getDocumetByName(String fileName) {
-        String query = "SELECT id, email, username, account_create_date FROM documents WHERE file_name = ?";
+    public List<Document> getDocumentsByName(String fileName) {
+        String query = "SELECT * FROM documents WHERE file_name = ?";
         return jdbcTemplate.query(query, new DocumentRowMapper(), fileName);
+    }
+
+    public List<Document> getDocumentsByDate(LocalDateTime date) {
+        String query = "SELECT * FROM documents WHERE upload_date = ?";
+        return jdbcTemplate.query(query, new DocumentRowMapper(), Timestamp.valueOf(date));
     }
 
     public List<Document> getAllDocuments() {

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register - PDF Modifier</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="container">
+    <h2>Registrazione</h2>
+
+    <!-- Messaggi di errore -->
+    <div th:if="${user_email_already_exists}" class="error">
+        L'email è già registrata!
+    </div>
+
+    <div th:if="${user_username_already_exists}" class="error">
+        Il nome utente è già in uso!
+    </div>
+
+    <!-- FORM -->
+    <form th:action="@{/register}" method="post">
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Registrati</button>
+    </form>
+</div>
+
+</body>
+</html>

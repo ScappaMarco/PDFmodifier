@@ -14,21 +14,21 @@ public class User {
 
     private String username;
     private String email;
-    private String encodedPassword;
+    private String password;
     private LocalDate accountCreateDate;
 
-    public User(Long id, String username, String email, String encodedPassword, LocalDate accountCreateDate) {
+    public User(Long id, String username, String email, String password, LocalDate accountCreateDate) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.encodedPassword = encodedPassword;
+        this.password = password;
         this.accountCreateDate = accountCreateDate;
     }
 
-    public User(String username, String email, String encodedPassword, LocalDate accountCreateDate) {
+    public User(String username, String email, String password, LocalDate accountCreateDate) {
         this.username = username;
         this.email = email;
-        this.encodedPassword = encodedPassword;
+        this.password = password;
         this.accountCreateDate = accountCreateDate;
     }
 
@@ -58,12 +58,12 @@ public class User {
         this.email = email;
     }
 
-    public String getEncodedPassword() {
-        return this.encodedPassword;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setEncodedPassword(String encodedPassword) {
-        this.encodedPassword = encodedPassword;
+    public void setPassword(String encodedPassword) {
+        this.password = encodedPassword;
     }
 
     public LocalDate getAccountCreateDate() {

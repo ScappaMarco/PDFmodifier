@@ -2,6 +2,7 @@ package com.PDFmodifier.PDFmodifier.database.query;
 
 import com.PDFmodifier.PDFmodifier.database.mappers.DocumentRowMapper;
 import com.PDFmodifier.PDFmodifier.model.Document;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,11 @@ public class DocumentRepository {
 
     public Document getDocumentById(Long id) {
         String query = "SELECT * FROM documents WHERE id = ?";
-        return jdbcTemplate.queryForObject(query, new DocumentRowMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(query, new DocumentRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public List<Document> getDocumentsByName(String fileName) {

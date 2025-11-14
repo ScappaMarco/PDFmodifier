@@ -17,8 +17,11 @@ public class HomeController {
         return "home";
     }
 
+    /*
     @GetMapping("*")
     public String fallback() {
         return "redirect:/home";
     }
+
+     */
 }

@@ -3,6 +3,7 @@ package com.PDFmodifier.PDFmodifier.database.query;
 import com.PDFmodifier.PDFmodifier.database.mappers.UserRowMapper;
 import com.PDFmodifier.PDFmodifier.model.User;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,24 +21,36 @@ public class UserRepository {
     }
 
     public void insertUser(User user) {
-        String query = "INSERT INTO users (username, email, enc_password, account_create_date) VALUES (?, ?, ?, ?, ?)";
-        String hashedPassword = BCrypt.hashpw(user.getEncodedPassword(), BCrypt.gensalt());
+        String query = "INSERT INTO users (username, email, enc_password, account_create_date) VALUES (?, ?, ?, ?)";
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         jdbcTemplate.update(query, user.getUsername(), user.getEmail(), hashedPassword, user.getAccountCreateDate());
     }
 
     public User getUserById(Long id) {
         String query = "SELECT id, username, email, account_create_date FROM users WHERE id = ?";
-        return jdbcTemplate.queryForObject(query, new UserRowMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(query, new UserRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
-    public User getUSerByEmail(String email) {
+    public User getUserByEmail(String email) {
         String query = "SELECT id, username, email, account_create_date FROM users WHERE email = ?";
-        return jdbcTemplate.queryForObject(query, new UserRowMapper(), email);
+        try {
+            return jdbcTemplate.queryForObject(query, new UserRowMapper(), email);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public User getUserByUsername(String username) {
         String query = "SELECT id, username, email, account_create_date FROM users WHERE username = ?";
-        return jdbcTemplate.queryForObject(query, new UserRowMapper(), username);
+        try {
+            return jdbcTemplate.queryForObject(query, new UserRowMapper(), username);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public List<User> getUserCreatedOnDate(LocalDate date) {
@@ -51,7 +64,7 @@ public class UserRepository {
     }
 
     public List<User> getAllUsers() {
-        String query = "SELECT * FROM users";
+        String query = "SELECT id, username, email, account_create_date FROM users";
         return jdbcTemplate.query(query, new UserRowMapper());
     }
 }

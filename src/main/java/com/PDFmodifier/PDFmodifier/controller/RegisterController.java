@@ -2,6 +2,8 @@ package com.PDFmodifier.PDFmodifier.controller;
 
 import com.PDFmodifier.PDFmodifier.database.query.UserRepository;
 import com.PDFmodifier.PDFmodifier.model.User;
+import com.PDFmodifier.PDFmodifier.service.UserService;
+import com.PDFmodifier.PDFmodifier.service.factory.UserServiceFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,17 +32,20 @@ public class RegisterController {
                              @RequestParam("username") String username,
                              @RequestParam("password") String password,
                              RedirectAttributes redirectAttributes) {
-        User userToSearchByEmail = userRepository.getUserByEmail(email);
-        if(userToSearchByEmail != null) {
+
+        UserService userService = UserServiceFactory.getUserService();
+
+        if(!(userService.doesUserEmailAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository))) {
             redirectAttributes.addFlashAttribute("user_email_already_exists", true);
             return "redirect:/register";
-        } else {
-            User userToSearchByUsername = userRepository.getUserByUsername(username);
-            if(userToSearchByUsername != null) {
-                redirectAttributes.addFlashAttribute("user_username_already_exists", true);
-                return "redirect:/register";
-            }
         }
+        if(!(userService.doesUserUsernameAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository))) {
+            redirectAttributes.addFlashAttribute("user_username_already_exists", true);
+            return "redirect:/register";
+        }
+        /*
+        Double if statement to secure the right error message later in the register page
+         */
         User userToAdd = new User(username, email, password, LocalDate.now());
         userRepository.insertUser(userToAdd);
 

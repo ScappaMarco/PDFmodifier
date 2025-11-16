@@ -34,6 +34,7 @@ public class RegisterController {
             @RequestParam("email") String email,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
+            @RequestParam("password_confirm") String confirmPassword,
             RedirectAttributes redirectAttributes,
             HttpSession session) {
 
@@ -45,12 +46,18 @@ public class RegisterController {
             redirectAttributes.addFlashAttribute("user_username_already_exists", true);
             return "redirect:/register";
         }
+
+        if(!(password.equals(confirmPassword))) {
+            redirectAttributes.addFlashAttribute("password_does_not_coincide", true);
+            return "redirect:/register";
+        }
         /*
         Double if statement to secure the right error message later in the register page
          */
         User userToAdd = new User(username, email, password, LocalDate.now());
         userRepository.insertUser(userToAdd);
 
+        //session logic
         session.setAttribute("loggedUser", username);
 
         return "redirect:/home";

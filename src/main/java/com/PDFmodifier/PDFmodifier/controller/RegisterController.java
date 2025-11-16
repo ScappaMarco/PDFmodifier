@@ -4,6 +4,7 @@ import com.PDFmodifier.PDFmodifier.database.query.UserRepository;
 import com.PDFmodifier.PDFmodifier.model.User;
 import com.PDFmodifier.PDFmodifier.service.UserService;
 import com.PDFmodifier.PDFmodifier.service.factory.UserServiceFactory;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +31,11 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String doRegister(
-                             @RequestParam("email") String email,
-                             @RequestParam("username") String username,
-                             @RequestParam("password") String password,
-                             RedirectAttributes redirectAttributes) {
+            @RequestParam("email") String email,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            RedirectAttributes redirectAttributes,
+            HttpSession session) {
 
         if(this.userService.doesUserEmailAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository)) {
             redirectAttributes.addFlashAttribute("user_email_already_exists", true);
@@ -48,6 +50,8 @@ public class RegisterController {
          */
         User userToAdd = new User(username, email, password, LocalDate.now());
         userRepository.insertUser(userToAdd);
+
+        session.setAttribute("loggedUser", username);
 
         return "redirect:/home";
     }

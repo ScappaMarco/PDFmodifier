@@ -9,13 +9,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean doesUserEmailAlreadyExists(User user, UserRepository userRepository) {
         User userToSearchByEmail = userRepository.getUserByEmail(user.getEmail());
-        return userToSearchByEmail == null;
+        return userToSearchByEmail != null;
     }
 
     @Override
     public boolean doesUserUsernameAlreadyExists(User user, UserRepository userRepository) {
         User userToSearchByUsername = userRepository.getUserByUsername(user.getUsername());
-        return userToSearchByUsername == null;
+        return userToSearchByUsername != null;
     }
 
     @Override

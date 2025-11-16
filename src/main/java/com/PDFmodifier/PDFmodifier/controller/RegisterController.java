@@ -16,9 +16,11 @@ import java.time.LocalDate;
 public class RegisterController {
 
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public RegisterController(UserRepository userRepository) {
+    public RegisterController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService = UserServiceFactory.getUserService();
     }
 
     @GetMapping("/register")
@@ -33,13 +35,11 @@ public class RegisterController {
                              @RequestParam("password") String password,
                              RedirectAttributes redirectAttributes) {
 
-        UserService userService = UserServiceFactory.getUserService();
-
-        if(!(userService.doesUserEmailAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository))) {
+        if(this.userService.doesUserEmailAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository)) {
             redirectAttributes.addFlashAttribute("user_email_already_exists", true);
             return "redirect:/register";
         }
-        if(!(userService.doesUserUsernameAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository))) {
+        if(this.userService.doesUserUsernameAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository)) {
             redirectAttributes.addFlashAttribute("user_username_already_exists", true);
             return "redirect:/register";
         }

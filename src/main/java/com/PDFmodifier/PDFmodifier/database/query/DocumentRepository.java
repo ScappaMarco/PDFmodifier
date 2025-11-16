@@ -2,6 +2,7 @@ package com.PDFmodifier.PDFmodifier.database.query;
 
 import com.PDFmodifier.PDFmodifier.database.mappers.DocumentRowMapper;
 import com.PDFmodifier.PDFmodifier.model.Document;
+import com.PDFmodifier.PDFmodifier.model.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -35,21 +36,52 @@ public class DocumentRepository {
 
     public List<Document> getDocumentsByName(String fileName) {
         String query = "SELECT * FROM documents WHERE file_name = ?";
-        return jdbcTemplate.query(query, new DocumentRowMapper(), fileName);
+        try {
+            return jdbcTemplate.query(query, new DocumentRowMapper(), fileName);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public List<Document> getDocumentsByDate(LocalDate date) {
         String query = "SELECT * FROM documents WHERE upload_date = ?";
-        return jdbcTemplate.query(query, new DocumentRowMapper(), Date.valueOf(date));
+        try {
+            return jdbcTemplate.query(query, new DocumentRowMapper(), Date.valueOf(date));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public List<Document> getDocumentsBetweenDates(LocalDate startDate, LocalDate endDate) {
         String query = "SELECT * FROM documents WHERE upload_date BETWEEN ? AND ?";
-        return jdbcTemplate.query(query, new DocumentRowMapper(), Date.valueOf(startDate), Date.valueOf(endDate));
+        try {
+            return jdbcTemplate.query(query, new DocumentRowMapper(), Date.valueOf(startDate), Date.valueOf(endDate));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public List<Document> getAllDocuments() {
         String query = "SELECT * FROM documents";
-        return jdbcTemplate.query(query, new DocumentRowMapper());
+        try {
+            return jdbcTemplate.query(query, new DocumentRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    public void deleteDocumentById(Long id) {
+        String query = "DELETE FROM documents WHERE id = ?";
+        jdbcTemplate.query(query, new DocumentRowMapper(), id);
+    }
+
+    public void deleteAllDocuments() {
+        String query = "DELETE FROM documents";
+        jdbcTemplate.update(query);
+    }
+
+    public void deleteAllDocumentsOwnedByUserId(Long id) {
+        String query = "DELETE FROM documents WHERE owner_id = ?";
+        jdbcTemplate.query(query, new DocumentRowMapper(),id);
     }
 }

@@ -67,4 +67,24 @@ public class UserRepository {
         String query = "SELECT id, username, email, account_create_date FROM users";
         return jdbcTemplate.query(query, new UserRowMapper());
     }
+
+    public void deleteUserById(Long id) {
+        String query = "DELETE FROM users WHERE id = ?";
+        jdbcTemplate.query(query, new UserRowMapper(), id);
+    }
+
+    public void deleteUserByEmail(String email) {
+        String query = "DELETE FROM users where email = ?";
+        jdbcTemplate.query(query, new UserRowMapper(), email);
+    }
+
+    public void deleteUserByUsername(String username) {
+        String query = "DELETE FROM users WHERE username = ?";
+        jdbcTemplate.query(query, new UserRowMapper(), username);
+    }
+
+    public void deleteAllUsers() {
+        String query = "DELETE FROM users";
+        jdbcTemplate.update(query);
+    }
 }

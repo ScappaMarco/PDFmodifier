@@ -36,6 +36,10 @@
             The password has to include at least one special character.
         </div>
 
+        <div th:if="${numbers_missing}" class="alert alert-danger">
+            The password has to include at least one number.
+        </div>
+
         <form th:action="@{/register}" method="post">
 
             <div class="mb-3">
@@ -48,20 +52,19 @@
                 <input type="text" name="username" class="form-control" th:value="${user_old_username}" required>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
                 <label class="form-label">Password</label>
                 <input type="password" name="password" id="password" class="form-control" required>
+
+                <label class="form-label">Confirm password</label>
+                <input type="password" name="password_confirm" id="confirmPassword" class="form-control" required>
 
                 <i id="toggleIcon"
                    class="bi bi-eye-slash"
                    onclick="togglePassword()"
                    style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
                 </i>
-            </div>
 
-            <div class="mb-3">
-                <label class="form-label">Confirm password</label>
-                <input type="password" name="password_confirm" class="form-control" required>
                 <small style="color:#777; font-style:italic;">
                     Your password must be at least 8 characters long and include one number and one special symbol (@/:;\_-).
                 </small>

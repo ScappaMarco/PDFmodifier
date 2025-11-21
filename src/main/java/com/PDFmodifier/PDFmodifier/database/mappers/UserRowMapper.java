@@ -15,6 +15,7 @@ public class UserRowMapper implements RowMapper<User> {
         u.setId(rs.getLong("id"));
         u.setUsername(rs.getString("username"));
         u.setEmail(rs.getString("email"));
+        u.setPassword(rs.getString("enc_password"));
 
         Date date = rs.getDate("account_create_date");
         if(date != null) {

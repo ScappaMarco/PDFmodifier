@@ -32,6 +32,11 @@ public class User {
         this.accountCreateDate = accountCreateDate;
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public User() {}
 
     public Long getId() {

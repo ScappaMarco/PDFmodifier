@@ -26,10 +26,11 @@ public class HomeController {
         }
     }
 
-    /*
     @GetMapping("*")
-    public String fallback() {
+    public String fallback(HttpSession session) {
+        if(session.getAttribute("loggedUser") == null) {
+            return "redirect:/login";
+        }
         return "redirect:/home";
     }
-     */
 }

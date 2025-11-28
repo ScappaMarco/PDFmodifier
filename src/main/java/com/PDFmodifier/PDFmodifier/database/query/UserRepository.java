@@ -35,17 +35,8 @@ public class UserRepository {
         }
     }
 
-    public User getUserWithHashedPasswordByEmail(String email) {
-        String query = "SELECT id, username, email, enc_password, account_create_date FROM users WHERE email = ?";
-        try {
-            return jdbcTemplate.queryForObject(query, new UserRowMapper(), email);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
     public User getUserByEmail(String email) {
-        String query = "SELECT id, username, email, account_create_date FROM users WHERE email = ?";
+        String query = "SELECT * FROM users WHERE email = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserRowMapper(), email);
         } catch (EmptyResultDataAccessException e) {
@@ -54,18 +45,9 @@ public class UserRepository {
     }
 
     public User getUserByUsername(String username) {
-        String query = "SELECT id, username, email, account_create_date FROM users WHERE username = ?";
+        String query = "SELECT * FROM users WHERE username = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserRowMapper(), username);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    public String getEncodedUserPasswordByEmail(String email) {
-        String query = "SELECT enc_password FROM users WHERE email = ?";
-        try {
-            return jdbcTemplate.queryForObject(query, String.class, email);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

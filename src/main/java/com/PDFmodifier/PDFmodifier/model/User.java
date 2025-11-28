@@ -14,6 +14,8 @@ public class User {
 
     private String username;
     private String email;
+
+    //The user is constructed with a clear password field; it is going to be hashed when the details of the user are going to be saved in the DB
     private String password;
     private LocalDate accountCreateDate;
 
@@ -32,10 +34,10 @@ public class User {
         this.accountCreateDate = accountCreateDate;
     }
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+//    public User(String email, String password) {
+//        this.email = email;
+//        this.password = password;
+//    }
 
     public User() {}
 

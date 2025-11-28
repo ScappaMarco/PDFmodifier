@@ -5,6 +5,7 @@ import com.PDFmodifier.PDFmodifier.model.User;
 import com.PDFmodifier.PDFmodifier.service.UserService;
 import com.PDFmodifier.PDFmodifier.service.factory.UserServiceFactory;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,10 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpSession session) {
+        if(session.getAttribute("loggedUser") != null) {
+            return "redirect:/home";
+        }
         return "/login";
     }
 
@@ -34,21 +38,20 @@ public class LoginController {
             RedirectAttributes redirectAttributes,
             HttpSession session) {
 
-        //Password field not hashed here!!!
-        User user = new User(email, password);
-
-        if(!(this.userService.isUserRegistered(user, this.userRepository))) {
+        if(!(this.userService.isUserRegistered(email, this.userRepository))) {
             redirectAttributes.addFlashAttribute("user_not_registered", true);
             return "redirect:/login";
         }
 
-        if(!(this.userService.checkPassword(user, this.userRepository))) {
+        User registredUser = this.userRepository.getUserByEmail(email);
+
+        if(!(BCrypt.checkpw(password, registredUser.getPassword()))) {
             redirectAttributes.addFlashAttribute("wrong_password", true);
+            redirectAttributes.addFlashAttribute("user_old_email", email);
             return "redirect:/login";
         }
 
-        User userFromDb = this.userRepository.getUserByEmail(user.getEmail());
-        session.setAttribute("logged_user", userFromDb.getUsername());
+        session.setAttribute("logged_user", registredUser.getUsername());
 
         return "redirect:/home";
     }

@@ -28,7 +28,10 @@ public class RegisterController {
     }
 
     @GetMapping("/register")
-    public String showRegister() {
+    public String showRegister(HttpSession session) {
+        if(session.getAttribute("loggedUser") != null) {
+            return "redirect:/home";
+        }
         return "register";
     }
 
@@ -41,7 +44,7 @@ public class RegisterController {
             RedirectAttributes redirectAttributes,
             HttpSession session) {
 
-        if(this.userService.doesUserEmailAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository)) {
+        if (this.userService.isUserRegistered(email, this.userRepository)) {
             redirectAttributes.addFlashAttribute("user_email_already_exists", true);
             redirectAttributes.addFlashAttribute("user_old_username", username);
             return "redirect:/register";

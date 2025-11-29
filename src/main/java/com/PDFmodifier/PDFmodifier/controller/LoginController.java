@@ -24,8 +24,9 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(HttpSession session) {
-        if(session.getAttribute("loggedUser") != null) {
+    public String login(HttpSession session, RedirectAttributes redirectAttributes) {
+        if(session.getAttribute("logged_user") != null) {
+            redirectAttributes.addFlashAttribute("register_blocked", true);
             return "redirect:/home";
         }
         return "/login";

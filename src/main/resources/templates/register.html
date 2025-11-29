@@ -10,78 +10,80 @@
 </head>
 <body class="bg-light">
 
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
 
-    <div class="card shadow p-4" style="width: 400px;">
+        <div class="card shadow p-4" style="width: 400px;">
 
-        <h3 class="text-center mb-4">Register</h3>
+            <h3 class="text-center mb-4">Register</h3>
 
-        <div th:if="${user_email_already_exists}" class="alert alert-danger">
-            This email is already registered.
-        </div>
-
-        <div th:if="${user_username_already_exists}" class="alert alert-danger">
-            The chosen username is already in use. Use another one.
-        </div>
-
-        <div th:if="${password_does_not_coincide}" class="alert alert-danger">
-            The password does not coincide.
-        </div>
-
-        <div th:if="${password_too_short}" class="alert alert-danger">
-            The password has to be at lest 8 characters long.
-        </div>
-
-        <div th:if="${special_character_missing}" class="alert alert-danger">
-            The password has to include at least one special character.
-        </div>
-
-        <div th:if="${numbers_missing}" class="alert alert-danger">
-            The password has to include at least one number.
-        </div>
-
-        <form th:action="@{/register}" method="post">
-
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" placeholder="es. mario.rossi@ex.com" th:value="${user_old_email}" class="form-control" required>
+            <div th:if="${user_email_already_exists}" class="alert alert-danger">
+                This email is already registered.
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" th:value="${user_old_username}" required>
+            <div th:if="${user_username_already_exists}" class="alert alert-danger">
+                The chosen username is already in use. Use another one.
             </div>
 
-            <div class="mb-3 position-relative">
-                <label class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-
-                <label class="form-label">Confirm password</label>
-                <input type="password" name="password_confirm" id="confirmPassword" class="form-control" required>
-
-                <i id="toggleIcon"
-                   class="bi bi-eye-slash"
-                   onclick="togglePasswordRegister()"
-                   style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
-                </i>
-
-                <small style="color:#777; font-style:italic;">
-                    Your password must be at least 8 characters long and include one number and one special symbol (@/:;\_-).
-                </small>
+            <div th:if="${password_does_not_coincide}" class="alert alert-danger">
+                The password does not coincide.
             </div>
 
-            <button type="submit" class="btn btn-dark w-100">
-                Register
-            </button>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="/login">Do you already have an account? Click here to login</a>
+            <div th:if="${password_too_short}" class="alert alert-danger">
+                The password has to be at lest 8 characters long.
             </div>
-        </form>
 
+            <div th:if="${special_character_missing}" class="alert alert-danger">
+                The password has to include at least one special character.
+            </div>
+
+            <div th:if="${numbers_missing}" class="alert alert-danger">
+                The password has to include at least one number.
+            </div>
+
+            <form th:action="@{/register}" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" placeholder="es. mario.rossi@ex.com" th:value="${user_old_email}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" th:value="${user_old_username}" required>
+                </div>
+
+                <div class="mb-3 position-relative">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+
+                    <i id="toggleIcon"
+                       class="bi bi-eye-slash"
+                       onclick="togglePassword()"
+                       style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+                    </i>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Confirm password</label>
+                    <input type="password" name="password_confirm" id="confirmPassword" class="form-control" required>
+
+                    <small style="color:#777; font-style:italic;">
+                        Your password must be at least 8 characters long and include one number and one special symbol (@/:;\_-).
+                    </small>
+                </div>
+
+                <button type="submit" class="btn btn-dark w-100">
+                    Register
+                </button>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="/login">Do you already have an account? Click here to login</a>
+                </div>
+            </form>
+
+        </div>
     </div>
-</div>
 
-<script src="/js/password-toggle.js"></script>
+    <script src="/js/password-toggle.js"></script>
 </body>
 </html>

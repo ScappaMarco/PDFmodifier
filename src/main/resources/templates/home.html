@@ -5,7 +5,18 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<h1>Benvenuto su PDF Modifier!</h1>
-<p>Questa è la tua home page servita da Spring Boot 🎉</p>
+
+    <div th:if="${register_blocked}" class="alert alert-danger">
+        To access Login or Register pages you have to log out first.
+    </div>
+
+    <form th:action="@{/logout}" method="post">
+
+        <button type="submit" class="btn btn-dark w-100">
+            Logout
+        </button>
+    </form>
+    <h1>Benvenuto su PDF Modifier!</h1>
+    <p>Questa è la tua home page servita da Spring Boot 🎉</p>
 </body>
 </html>

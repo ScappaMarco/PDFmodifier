@@ -28,8 +28,9 @@ public class RegisterController {
     }
 
     @GetMapping("/register")
-    public String showRegister(HttpSession session) {
-        if(session.getAttribute("loggedUser") != null) {
+    public String showRegister(HttpSession session, RedirectAttributes redirectAttributes) {
+        if(session.getAttribute("logged_user") != null) {
+            redirectAttributes.addFlashAttribute("register_blocked", true);
             return "redirect:/home";
         }
         return "register";
@@ -95,7 +96,7 @@ public class RegisterController {
         userRepository.insertUser(userToAdd);
 
         //session logic
-        session.setAttribute("loggedUser", username);
+        session.setAttribute("logged_user", username);
 
         return "redirect:/home";
     }

@@ -52,6 +52,7 @@ public class LoginController {
             return "redirect:/login";
         }
 
+        //session logic
         session.setAttribute("logged_user", registredUser.getUsername());
 
         return "redirect:/home";

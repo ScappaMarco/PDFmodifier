@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public boolean doesUserUsernameAlreadyExists(User user, UserRepository userRepository) {
-        User userToSearchByUsername = userRepository.getUserByUsername(user.getUsername());
+    public boolean doesUserUsernameAlreadyExists(String username, UserRepository userRepository) {
+        User userToSearchByUsername = userRepository.getUserByUsername(username);
         return userToSearchByUsername != null;
     }
 

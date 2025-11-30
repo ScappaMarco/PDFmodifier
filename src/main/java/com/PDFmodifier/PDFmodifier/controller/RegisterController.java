@@ -38,6 +38,9 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String doRegister(
+            @RequestParam("first_name") String firstName,
+            @RequestParam("last_name") String lastName,
+            @RequestParam("birth_date") LocalDate birthDate,
             @RequestParam("email") String email,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
@@ -47,11 +50,14 @@ public class RegisterController {
 
         if (this.userService.isUserRegistered(email, this.userRepository)) {
             redirectAttributes.addFlashAttribute("user_email_already_exists", true);
+            redirectAttributes.addFlashAttribute("user_old_first_name", firstName);
+            redirectAttributes.addFlashAttribute("user_old_last_name", lastName);
+            redirectAttributes.addFlashAttribute("user_old_birth_date", birthDate);
             redirectAttributes.addFlashAttribute("user_old_username", username);
             return "redirect:/register";
         }
 
-        if(this.userService.doesUserUsernameAlreadyExists(new User(username, email, password, LocalDate.now()), userRepository)) {
+        if(this.userService.doesUserUsernameAlreadyExists(username, userRepository)) {
             redirectAttributes.addFlashAttribute("user_username_already_exists", true);
             redirectAttributes.addFlashAttribute("user_old_email", email);
             return "redirect:/register";
@@ -92,7 +98,7 @@ public class RegisterController {
         /*
         Multi if statement to secure the right error message later in the register page
          */
-        User userToAdd = new User(username, email, password, LocalDate.now());
+        User userToAdd = new User(firstName, lastName, birthDate, username, email, password, LocalDate.now());
         userRepository.insertUser(userToAdd);
 
         //session logic

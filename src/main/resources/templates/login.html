@@ -26,20 +26,22 @@
 
             <form th:action="@{/login}" method="post">
 
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" th:value="${user_old_email}" class="form-control" required>
-                </div>
+                <div class="info-box mb-4">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" th:value="${user_old_email}" class="form-control" required>
+                    </div>
 
-                <div class="mb-3 position-relative">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
 
-                    <i id="toggleIcon"
-                       class="bi bi-eye-slash"
-                       onclick="togglePasswordLogin()"
-                       style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
-                    </i>
+                        <i id="toggleIcon"
+                           class="bi bi-eye-slash"
+                           onclick="togglePasswordLogin()"
+                           style="position: absolute; right: 10px; top: 38px; cursor: pointer;">
+                        </i>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-dark w-100">

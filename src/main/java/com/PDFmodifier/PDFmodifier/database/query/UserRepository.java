@@ -23,7 +23,7 @@ public class UserRepository {
     public void insertUser(User user) {
         String query = "INSERT INTO users (first_name, last_name, birth_date, username, email, enc_password, account_create_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-        jdbcTemplate.update(query, user.getUsername(), user.getEmail(), hashedPassword, user.getAccountCreateDate());
+        jdbcTemplate.update(query, user.getFirstName(), user.getLastName(), user.getBirthDate(), user.getUsername(), user.getEmail(), hashedPassword, user.getAccountCreateDate());
     }
 
     public User getUserById(Long id) {

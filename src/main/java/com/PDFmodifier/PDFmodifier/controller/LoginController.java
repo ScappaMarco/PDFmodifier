@@ -7,6 +7,7 @@ import com.PDFmodifier.PDFmodifier.service.factory.UserServiceFactory;
 import jakarta.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpSession session, RedirectAttributes redirectAttributes) {
-        if(session.getAttribute("logged_user") != null) {
+        if(session.getAttribute("logged_user_username") != null) {
             redirectAttributes.addFlashAttribute("register_blocked", true);
             return "redirect:/home";
         }
@@ -37,6 +38,7 @@ public class LoginController {
             @RequestParam String email,
             @RequestParam String password,
             RedirectAttributes redirectAttributes,
+            Model model,
             HttpSession session) {
 
         if(!(this.userService.isUserRegistered(email, this.userRepository))) {
@@ -53,7 +55,11 @@ public class LoginController {
         }
 
         //session logic
-        session.setAttribute("logged_user", registredUser.getUsername());
+        session.setAttribute("logged_user_username", registredUser.getUsername());
+        session.setAttribute("logged_user_id", registredUser.getId());
+
+        //adding the user to the model
+        //model.addAttribute("user", registredUser);
 
         return "redirect:/home";
     }

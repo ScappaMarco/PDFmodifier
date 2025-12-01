@@ -10,6 +10,8 @@
         To access Login or Register pages you have to log out first.
     </div>
 
+    <a th:href="@{/users/{id}(id=${user.id})}">Profile</a>
+
     <form th:action="@{/logout}" method="post">
 
         <button type="submit" class="btn btn-dark w-100">

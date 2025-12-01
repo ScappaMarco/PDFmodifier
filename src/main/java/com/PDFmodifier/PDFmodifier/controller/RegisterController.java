@@ -90,8 +90,8 @@ public class RegisterController {
             return "redirect:/register";
         }
 
-        List<String> specialCharacters = new ArrayList<>(Arrays.asList("!", "#", "<", "=", ">", "$", "\"", "'", "(", ")", "/", "@",
-                "-", ";", ":", "+", "*", "?", "^", "%", "&", ".", "[", "]", "\\", "_", "{", "}", "|", "~"));
+        List<String> specialCharacters = new ArrayList<>(Arrays.asList("!", "#", "$", "@",
+                "-", "+", "*", "?", "^", "%", "&", "_", "|", "~"));
 
         if(specialCharacters.stream().noneMatch(password::contains)) {
             redirectAttributes.addFlashAttribute("special_character_missing", true);

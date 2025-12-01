@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Objects;
-
 @Controller
 public class UserInfoController {
 
@@ -26,6 +24,10 @@ public class UserInfoController {
             Model model,
             RedirectAttributes redirectAttributes
     ) {
+
+        if(session.getAttribute("logged_user_username") == null) {
+            return "redirect:/login";
+        }
         //check if the user_id in the path is the same as the user logged. In case it is not we redirect to error
         Long sessionUserId = (Long) session.getAttribute("logged_user_id");
         if(!(id.equals(sessionUserId))) {

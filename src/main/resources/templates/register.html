@@ -37,7 +37,7 @@
                 </div>
 
                 <div th:if="${special_character_missing}" class="alert alert-danger">
-                    The password has to include at least one special character.
+                    The password has to include at least one special character between (!, #, $, @, , -, _, +, *, ?, ^, %, &, |, ~)
                 </div>
 
                 <div th:if="${numbers_missing}" class="alert alert-danger">
@@ -97,7 +97,7 @@
                             <input type="password" name="password_confirm" id="confirmPassword" class="form-control" required>
 
                             <small style="color:#777; font-style:italic;">
-                                Your password must be at least 8 characters long and include one number and one special symbol (@/:;\_-).
+                                Your password must be at least 8 characters long and include one number and one special symbol (!, #, $, @, , -, _, +, *, ?, ^, %, &, |, ~).
                             </small>
                         </div>
                     </div>
